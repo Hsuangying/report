@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>大西洋飲料｜智慧製造 AI 決策平台 Demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/zh/thumb/c/c5/Beverage_Limited_Company_of_the_Atlantic_Ocean_logo.svg/1280px-Beverage_Limited_Company_of_the_Atlantic_Ocean_logo.svg.png" class="logo"></div>
+      <div>
+        <h1>Smart QMS</h1>
+      </div>
+    </div>
+    <nav>
+      <a class="active" href="#dashboard">總覽儀表板</a>
+      <a href="#events">異常事件管理</a>
+      <a href="#thread">製造履歷查詢</a>
+      <a href="#ai">AI Agent 決策支援</a>
+      <a href="#maintenance">預測性維護</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">QMS-Dashboard</p>
+        <h2>大西洋飲料數位品質管理平台</h2>
+      </div>
+    </section>
+
+    <section id="dashboard" class="grid cards">
+      <article class="card">
+        <p>今日生產批次</p>
+        <h3>18 批</h3>
+        <span class="up">+2 批</span>
+      </article>
+      <article class="card">
+        <p>今日異常事件</p>
+        <h3 id="eventCount">3 件</h3>
+        <span class="warn">需追蹤</span>
+      </article>
+      <article class="card">
+        <p>批次履歷完整率</p>
+        <h3>97.2%</h3>
+        <span class="up">穩定</span>
+      </article>
+      <article class="card">
+        <p>高風險設備</p>
+        <h3 id="riskMachine">1 台</h3>
+        <span class="danger">FILL-LINE-03</span>
+      </article>
+    </section>
+
+    <section id="events" class="panel">
+      <div class="section-title">
+        <h2>異常事件管理</h2>
+        <p>以 Event Schema 標準化事件紀錄，支援後續追溯與 AI 分析。</p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>事件ID</th>
+            <th>事件類型</th>
+            <th>設備</th>
+            <th>批次</th>
+            <th>嚴重度</th>
+            <th>狀態</th>
+          </tr>
+        </thead>
+        <tbody id="eventTable">
+          <tr>
+            <td>EVT-0042</td>
+            <td>溫度異常</td>
+            <td>FILL-LINE-03</td>
+            <td>BAT-A12</td>
+            <td><span class="badge danger">HIGH</span></td>
+            <td>已通知主管</td>
+          </tr>
+          <tr>
+            <td>EVT-0041</td>
+            <td>振動異常</td>
+            <td>MIX-TANK-01</td>
+            <td>BAT-A11</td>
+            <td><span class="badge warn">MEDIUM</span></td>
+            <td>待檢查</td>
+          </tr>
+          <tr>
+            <td>EVT-0040</td>
+            <td>品質檢驗異常</td>
+            <td>SEAL-UNIT-02</td>
+            <td>BAT-A10</td>
+            <td><span class="badge warn">MEDIUM</span></td>
+            <td>複檢中</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="thread" class="panel">
+      <div class="section-title">
+        <h2>製造履歷查詢</h2>
+        <p>輸入批次編號，查詢該批產品的設備、品檢、維修與異常紀錄。</p>
+      </div>
+      <div class="search">
+        <input id="batchInput" value="BAT-A12" placeholder="輸入批次編號，例如 BAT-A12" />
+        <button onclick="lookupBatch()">查詢</button>
+      </div>
+      <div id="threadResult" class="timeline"></div>
+    </section>
+
+    <section id="ai" class="panel">
+      <div class="section-title">
+        <h2>AI Agent 決策支援</h2>
+        <p>示範管理者可用自然語言詢問工廠狀態，系統回覆風險與建議。</p>
+      </div>
+      <div class="chat">
+        <div id="chatBox" class="chatbox">
+          <div class="msg ai">您好，我是 AI Agent。可以詢問：「最近哪台設備風險最高？」或「BAT-A12 有什麼異常？」</div>
+        </div>
+        <div class="search">
+          <input id="question" placeholder="輸入問題..." />
+          <button onclick="askAI()">送出</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="maintenance" class="panel">
+      <div class="section-title">
+        <h2>預測性維護</h2>
+        <p>依據振動、溫度、告警頻率與維修紀錄產生設備風險分級。</p>
+      </div>
+      <div class="machine-list">
+        <div class="machine high">
+          <h3>FILL-LINE-03</h3>
+          <p>健康分數：62 / 100</p>
+          <p>風險：高</p>
+          <p>建議：7 天內安排預防性檢查</p>
+        </div>
+        <div class="machine medium">
+          <h3>MIX-TANK-01</h3>
+          <p>健康分數：76 / 100</p>
+          <p>風險：中</p>
+          <p>建議：檢查密封件狀態</p>
+        </div>
+        <div class="machine low">
+          <h3>SEAL-UNIT-02</h3>
+          <p>健康分數：89 / 100</p>
+          <p>風險：低</p>
+          <p>建議：維持正常監控</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
